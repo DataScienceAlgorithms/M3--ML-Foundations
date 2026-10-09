@@ -14,15 +14,3 @@ def compute_slope_intercept(x, y):
     b = meany - m * meanx
     return m, b
 
-def group_by(table, header, group_by_col_name):
-    col = get_column(table, header, group_by_col_name)
-    unique_col_values = sorted((set(col)))
-    group_by_col_index = header.index(group_by_col_name)
-    group_subtables = [[] for _ in unique_col_values]
-
-    for row in table:
-        group_by_val = row[group_by_col_index]
-        subtable_index = unique_col_values.index(group_by_val)
-        group_subtables[subtable_index].append(row)
-
-    return unique_col_values, group_subtables
