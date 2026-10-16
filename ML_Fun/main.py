@@ -1,8 +1,23 @@
 from my_simple_linear_regressor import MySimpleLinearRegressor
-
-
-
+import operator
 import numpy as np
+from scipy.spatial.distance import euclidean
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+# unit under test
+def compute_euclidean_distance(v1, v2):
+    # TODO 
+    pass
+
+# unit test
+def test_compute_euclidean_distance():
+    # we need data
+    np.random.seed(0)
+    v1 = np.random.random(100)
+    v2 = np.random.random(100)
+    # TODO
+    pass
 
 
 def main():
@@ -45,6 +60,49 @@ def main():
       
     y_pred=my_lin.predict([[8]])
     print(y_pred)
+
+    #class activity 2 (knn)
+
+    header = ["att1", "att2"]
+    X_train = [
+        [3, 2],
+        [6, 6],
+        [4, 1],
+        [4, 4],
+        [1, 2],
+        [2, 0],
+        [0, 3],
+        [1, 6]
+    ]
+    y_train = ["no", "yes", "no", "no", "yes", "no", "yes", "yes"] # parallel to X_train
+    unseen_instance = [2, 3]
+    # 1. normalize if needed (not needed for dataset, assumed [0, 10])
+    # 2. TODO calculate distances between each training set instance and the unseen instance
+    row_indexes_dists = [] # list of tuple pairs (row index, dist)
+    
+
+    # 3.  Sort by distance (ascending) 
+    row_indexes_dists.sort(key=operator.itemgetter(-1)) # get the item in the tuple at index -1 
+    # and use that for sorting
+    # 4. TODO Select the k nearest neighbors
+    k = 3 
+    
+
+    # 5.TODO Extract the class labels of neighbors neigbors from y_train
+    top_k_labels = []
+
+
+    # 6. TODO Predict using Majority voting
+    
+
+    #print("Predicted class:", prediction)
+
+    # check work against sci-kit learn
+    knn_clf = KNeighborsClassifier(n_neighbors=3, metric="euclidean")
+    knn_clf.fit(X_train, y_train)
+    distances, indexes = knn_clf.kneighbors([unseen_instance])
+    print(distances)
+    print(indexes)
 
 
 
